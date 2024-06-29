@@ -1,0 +1,40 @@
+<head>
+    <link rel="stylesheet" href="/static/style/nav_style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" id="brand" href="/">Min Khant Soe Oke (CodeSoft Internship)</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            {% if logged_in %}
+            <ul class="navbar-nav">
+                <li class="navbar-item">
+                    <a class="nav-link" href="/todolist">To Do List</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/calculator">Calculator</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/password_generator">Password Generator</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/game">Game</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/contact_book">Contact Book</a>
+                </li>
+                <li class="navbar-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+            <h6 class="no-color-text">Logged in as : {{ current_user.username }}</h6>
+            {% endif %}
+        </div>
+      </div>
+    </nav>
+</body>

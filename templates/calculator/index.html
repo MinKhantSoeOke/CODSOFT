@@ -1,0 +1,57 @@
+{% extends '/master/base/base.html' %}
+
+{% block title %}
+Calculator
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/style/style.css">
+    <link rel="stylesheet" href="/static/style/calculator_style.css">
+{% endblock style %}
+
+{% block content %}
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="text-align: center; font-size: large;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container" id="calculator_container">
+      <div class="calculator">
+        <div class="display" id="display">0</div>
+        <div class="buttons">
+          <button class="button" data-action="clear">AC</button>
+          <button class="button" data-action="sign">+/-</button>
+          <button class="button" data-action="percent">%</button>
+          <button class="button operator" data-action="divide">÷</button>
+          <button class="button" data-action="7">7</button>
+          <button class="button" data-action="8">8</button>
+          <button class="button" data-action="9">9</button>
+          <button class="button operator" data-action="multiply">×</button>
+          <button class="button" data-action="4">4</button>
+          <button class="button" data-action="5">5</button>
+          <button class="button" data-action="6">6</button>
+          <button class="button operator" data-action="subtract">−</button>
+          <button class="button" data-action="1">1</button>
+          <button class="button" data-action="2">2</button>
+          <button class="button" data-action="3">3</button>
+          <button class="button operator" data-action="add">+</button>
+          <button class="button" id="zero" data-action="0">0</button>
+          <button class="button" data-action="decimal">.</button>
+          <button class="button operator" data-action="equals">=</button>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='/js/script.js') }}"></script>
+</body>
+
+
+{% endblock %}

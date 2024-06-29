@@ -1,0 +1,55 @@
+{% extends '/master/base/base.html' %}
+
+{% block title %}
+Password Generator
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/style/style.css">
+{% endblock style %}
+
+{% block content %}
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="text-align: center; font-size: large;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container" id="game_container">
+      <div class="card">
+        <div class="card-body">
+            {% if not result %}
+                <h3 class="text-align-center mt-3 mb-3">Rock-Paper-Scissors Game</h3>
+                <p class="text-align-center mb-5">Choose rock-paper-scissors below</p>
+                <div class="row mb-5">
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <a href="/play/rock" class="w-50 btn btn-primary rounded-pill">Rock</a>
+                    </div>
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <a href="/play/paper" class="w-50 btn btn-primary rounded-pill">Paper</a>
+                    </div>
+                    <div class="col d-flex justify-content-center align-items-center">
+                        <a href="/play/scissors" class="w-50 btn btn-primary rounded-pill">Scissors</a>
+                    </div>
+                </div>
+            {% else %}
+                <h5 class="text-align-center mt-3 mb-3">Your choice: {{ result['user_choice'].title() }}</h5>
+                <h5 class="text-align-center mt-3 mb-3">Computer's choice: {{ result['computer_choice'].title() }}</h5>
+                <h3 class="text-align-center mt-5 mb-5">{{ result['result'].capitalize() }}</h3>
+                <div class="d-flex justify-content-center align-items-center">
+                    <a href="/game" class="w-50 btn btn-primary rounded-pill">Play Again!</a>
+                </div>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+</body>
+
+
+{% endblock %}

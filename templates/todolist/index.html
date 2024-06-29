@@ -1,0 +1,67 @@
+{% extends '/master/base/base.html' %}
+
+{% block title %}
+To Do List
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/style/style.css">
+{% endblock style %}
+
+{% block content %}
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="text-align: center; font-size: large;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container-fluid mt-3 mb-2 d-flex justify-content-end">
+        <a href="/add_new_task" class="btn btn-primary rounded-pill">Add New Task</a>
+    </div>
+    <div class="container-fluid">
+        {% if tasks %}
+            {% for task in tasks %}
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-align-center">Status: {{ task.status.title() }}</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-align-center">Priority: {{ task.priority }}</p>
+                            </div>
+                            <div class="col">
+                                <p class="text-align-center">Created at: {{ task.created_at.strftime('%Y-%m-%d') }}</p>
+                            </div>
+                        </div>
+                        <h3>{{ task.title }}</h3>
+                        <p>{{ task.description }}</p>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <a href="/edit_task/{{ task.id }}" class="w-50 btn btn-warning rounded-pill">Edit</a>
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <a href="/delete_task/{{ task.id }}" class="w-50 btn btn-danger rounded-pill">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-align-center">There are no tasks added!</h4>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+
+
+{% endblock %}

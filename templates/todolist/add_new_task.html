@@ -1,0 +1,67 @@
+{% extends '/master/base/base.html' %}
+
+{% block title %}
+Add New ToDoList
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/style/style.css">
+{% endblock style %}
+
+{% block content %}
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="text-align: center; font-size: large;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container mt-5" id="login_container">
+        <h1>Add New Task</h1>
+        <div class="container-fluid">
+            <form action="/add_new_task" method="post" id="add_task_form" validate>
+                <div class="form-floating mt-1 mb-3">
+                    <input type="text" class="form-control" id="title" placeholder="<TITLE>" name="title" required>
+                    <label for="title">Title</label>
+                </div>
+                <div class="form-floating mt-4 mb-3">
+                    <input type="text" class="form-control" id="description" placeholder="<DESCRIPTION>" name="description" required>
+                    <label for="description">Description</label>
+                </div>
+                <div class="form-control mt-4 mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" aria-label="Select a Status" name="status" required>
+                      <option selected>-- Choose a status --</option>
+                      <option value="not started">Not Started</option>
+                      <option value="in process">In Process</option>
+                      <option value="done">Done</option>
+                    </select>
+                </div>
+                <div class="form-control mt-4 mb-3">
+                  <label for="customRange" class="form-label">Priority</label>
+                  <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange" name="priority" required>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="submit" class="w-50 btn btn-lg btn-primary mt-1" id="add_button">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('add_task_form').onsubmit = function() {
+            var submitButton = document.getElementById('add_button');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Adding ...';
+            }
+        };
+    </script>
+</body>
+
+
+{% endblock %}

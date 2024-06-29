@@ -1,0 +1,77 @@
+{% extends '/master/base/base.html' %}
+
+{% block title %}
+Contact Book
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/style/style.css">
+{% endblock style %}
+
+{% block content %}
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="text-align: center; font-size: large;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container-fluid mt-3 mb-2 d-flex justify-content-end">
+        <form class="row w-50" method="GET" action="/search" validate>
+            <div class="col-6">
+                <input type="text" class="form-control" id="search" placeholder="Type to search ..." name="search" required>
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary rounded-pill" name="search_type" value="name">Search by Name</button>
+            </div>
+            <div class="col-3">
+                <button type="submit" class="btn btn-primary rounded-pill" name="search_type" value="phone">Search by Phone</button>
+            </div>
+        </form>
+        <a href="/add_new_contact" class="btn btn-primary rounded-pill">Add New Contact</a>
+    </div>
+    <div class="container-fluid">
+        {% if contacts %}
+            {% for contact in contacts %}
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="text-align-center mt-3 mb-3">{{ contact.name }}</h3>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <p>{{ contact.phone }}</p>
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <p>{{ contact.email }}</p>
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <p>{{ contact.address }}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <a href="/update_contact/{{ contact.id }}" class="w-50 btn btn-warning rounded-pill">Update</a>
+                            </div>
+                            <div class="col d-flex justify-content-center align-items-center">
+                                <a href="/delete_contact/{{ contact.id }}" class="w-50 btn btn-danger rounded-pill">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-align-center">There are no contacts added!</h4>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+
+
+{% endblock %}

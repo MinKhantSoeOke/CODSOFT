@@ -1,0 +1,62 @@
+{% extends '/master/base/base.html' %}
+
+{% block title %}
+Add New Contact
+{% endblock title %}
+
+{% block style %}
+    <link rel="stylesheet" href="/static/style/style.css">
+{% endblock style %}
+
+{% block content %}
+
+<body>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="text-align: center; font-size: large;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    <div class="container mt-5" id="login_container">
+        <h1>Add New Contact</h1>
+        <div class="container-fluid">
+            <form action="/add_new_contact" method="post" id="add_contact_form" validate>
+                <div class="form-floating mt-1 mb-3">
+                    <input type="text" class="form-control" id="name" placeholder="<NAME>" name="name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="form-floating mt-4 mb-3">
+                    <input type="text" class="form-control" id="phone" placeholder="<PHONE>" name="phone" required>
+                    <label for="phone">Phone</label>
+                </div>
+                <div class="form-floating mt-1 mb-3">
+                    <input type="email" class="form-control" id="emailInput" placeholder="<EMAIL>" name="email" required>
+                    <label for="emailInput">Email</label>
+                </div>
+                <div class="form-floating mt-1 mb-3">
+                    <input type="text" class="form-control" id="address" placeholder="<ADDRESS>" name="address" required>
+                    <label for="address">Address</label>
+                </div>
+                <div class="d-flex justify-content-center align-items-center">
+                    <button type="submit" class="w-50 btn btn-lg btn-primary mt-1" id="add_button">Add</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+        document.getElementById('add_contact_form').onsubmit = function() {
+            var submitButton = document.getElementById('add_button');
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Adding ...';
+            }
+        };
+    </script>
+</body>
+
+
+{% endblock %}
